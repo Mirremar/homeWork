@@ -12,12 +12,12 @@ public class Notebook {
     String color;
     Integer hd;
 
-    @Override
+    @Override  //Перегрузка метода для вывода объектов
     public String toString() {
         return "manufacturer: " + manufacturer + ", ram: " + ram + " GB, os: " + os + ", color: " + color + ", hd: " + hd;
     }
 
-    @Override
+    @Override  //Перегрузка для сравнения
     public boolean equals(Object obj) {
         if (this == obj) {return true;}
             if (!(obj instanceof Notebook))
@@ -29,11 +29,11 @@ public class Notebook {
 
     }
 
-    static ArrayList<Notebook> notebooks = new ArrayList<>();
-    static  Map<Integer,String> fieldCorrelation = new HashMap<>();
-    static List<Notebook> filteredNotebooks = new ArrayList<>();
+    static ArrayList<Notebook> notebooks = new ArrayList<>(); //Стандартная коллекция ноутбуков
+    static  Map<Integer,String> fieldCorrelation = new HashMap<>(); //Маппинг критериев поиска
+    static List<Notebook> filteredNotebooks = new ArrayList<>(); //Отфильтрованная коллекция
 
-    static void noteAdd()
+    static void noteAdd() //Метод добавления ноутбука в коллекцию notebooks
     {
         Notebook n = new Notebook();
         Scanner sc = new Scanner(System.in);
@@ -50,7 +50,7 @@ public class Notebook {
         notebooks.add(n);
     }
 
-    static void noteSearch(HashMap<Integer,String> filterAndExpr)
+    static void noteSearch(HashMap<Integer,String> filterAndExpr) //Последовательная фильтрация на основе выбранных критериев
     {
 
         if (filterAndExpr.containsKey(1))
@@ -78,42 +78,42 @@ public class Notebook {
             filterByColor(filterAndExpr.get(5));
         }
     }
-    static List<Notebook> filterByManufacturer (String f)
+    static List<Notebook> filterByManufacturer (String f) //Фильтр по производителю
 
     {
             filteredNotebooks = filteredNotebooks.stream()
                     .filter(notebook -> (notebook.manufacturer.equals(f.toUpperCase()))).collect(Collectors.toList());
             return filteredNotebooks;
     }
-    static List<Notebook> filterByRam (String f)
+    static List<Notebook> filterByRam (String f) //Фильтр по оперативной памяти
     {
         filteredNotebooks = filteredNotebooks.stream()
                 .filter(notebook -> (notebook.ram.toString().equals(f))).collect(Collectors.toList());
         return filteredNotebooks;
     }
 
-    static List<Notebook> filterByOs (String f)
+    static List<Notebook> filterByOs (String f) //Фильтр по оперативной памяти
     {
         filteredNotebooks = filteredNotebooks.stream()
                 .filter(notebook -> (notebook.os.equals(f.toLowerCase()))).collect(Collectors.toList());
         return filteredNotebooks;
     }
 
-    static List<Notebook> filterByHd (String f)
+    static List<Notebook> filterByHd (String f) //Фильтр по объёму жёсткого диска
     {
         filteredNotebooks = filteredNotebooks.stream()
                 .filter(notebook -> (notebook.hd.toString().equals(f))).collect(Collectors.toList());
         return filteredNotebooks;
     }
 
-    static List<Notebook> filterByColor (String f)
+    static List<Notebook> filterByColor (String f) //Фильтр по цвету
     {
         filteredNotebooks = filteredNotebooks.stream()
                 .filter(notebook -> (notebook.color.equals(f.toLowerCase()))).collect(Collectors.toList());
         return filteredNotebooks;
     }
     
-    static void initialize()
+    static void initialize() //Создание базового списка ноутбуков
     {
         Notebook n1 = new Notebook();
         Notebook n2 = new Notebook();
@@ -167,16 +167,16 @@ public class Notebook {
         notebooks.add(n6);
 
 
-        fieldCorrelation.put(1,"manufacturer");
+        fieldCorrelation.put(1,"manufacturer"); //инициализация маппинга критериев
         fieldCorrelation.put(2,"ram");
         fieldCorrelation.put(3,"os");
         fieldCorrelation.put(4,"hd");
         fieldCorrelation.put(5,"color");
 
-        filteredNotebooks.addAll(notebooks);
+        filteredNotebooks.addAll(notebooks); //перед тем как фильтровать,копируем сюда то,что есть в notebooks
     }
 
-    static HashMap<Integer,String> criteriaReader()
+    static HashMap<Integer,String> criteriaReader() //Обработка введённых критериев
     {
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите номера критериев поиска через пробел\n" +
