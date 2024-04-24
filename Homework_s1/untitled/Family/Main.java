@@ -21,21 +21,19 @@ public class Main implements Serializable {
 
 
     public static void main(String[] args) {
-        FamilyTree ft = new FamilyTree();
-        Human a = new Human("And", "1856-05-12", "1906-04-13", Gender.Male, null, null);
-        Human b = new Human("Bor", "1854-01-05", "1954-06-17", Gender.Male, null, null);
-        Human c = new Human("Ann", "1888-05-12", "1966-04-13", Gender.Female, null, null);
-        Human d = new Human("Ber", "1890-05-12", "1965-04-13", Gender.Female, null, null);
-        Human e = new Human("Cat", "1858-05-12", "1916-04-13", Gender.Female, null, null);
-        Human f = new Human("Con", "1858-05-12", "1916-04-13", Gender.Male, null, null);
-        Human g = new Human("Der", "1858-05-12", "1916-04-13", Gender.Male, null, null);
-        Human h = new Human("Dim", "1858-05-12", "1916-04-13", Gender.Male, null, null);
-        Human i = new Human("Kuv", "1858-05-12", "1916-04-13", Gender.Female, null, null);
-        Human j = new Human("Puj", "1858-05-12", "1916-04-13", Gender.Female, null, null);
-        Human k = new Human("Lee", "1858-05-12", "1916-04-13", Gender.Female, null, null);
-        Human[] humans = {b, c, d, e, f, g, h, i, j, k};
-        ft.addRelatives(new Human[] {a});
-        ft.addRelatives(humans);
+        Service svc = new Service();
+        svc.addHuman("And", "1856-05-12", "1906-04-13", Gender.Male, null, null);
+        svc.addHuman("Bor", "1854-01-05", "1954-06-17", Gender.Male, null, null);
+        svc.addHuman("Ann", "1888-05-12", "1966-04-13", Gender.Female, null, null);
+        svc.addHuman("Ber", "1890-05-12", "1965-04-13", Gender.Female, null, null);
+        svc.addHuman("Cat", "1858-05-12", "1916-04-13", Gender.Female, null, null);
+        svc.addHuman("Con", "1858-05-12", "1916-04-13", Gender.Male, null, null);
+        svc.addHuman("Der", "1858-05-12", "1916-04-13", Gender.Male, null, null);
+        svc.addHuman("Dim", "1858-05-12", "1916-04-13", Gender.Male, null, null);
+        svc.addHuman("Kuv", "1858-05-12", "1916-04-13", Gender.Female, null, null);
+        svc.addHuman("Puj", "1858-05-12", "1916-04-13", Gender.Female, null, null);
+        svc.addHuman("Lee", "1858-05-12", "1916-04-13", Gender.Female, null, null);
+
 
         while (Boolean.TRUE) {
             System.out.println("Choose an action(number 1 to 6):\n");
@@ -53,22 +51,40 @@ public class Main implements Serializable {
             int actionVariable = Integer.parseInt(sc.next());
             switch (actionVariable) {
                 case 1: {
-                    for (Human element : ft.getHumanList()) {
-                        System.out.println(element);
+                    System.out.println("would you like to sort the tree by name or age?\n");
+                    System.out.println("1: by name\n");
+                    System.out.println("2: by age\n");
+                    System.out.println("any other key: no sort\n");
+                    int sortvar = Integer.parseInt(sc.next());
+                    switch (sortvar){
+                        case 1: {
+                            svc.getTree().sortByName();
+                            System.out.println(svc.getTreeInfo());
+                            break;
+                        }
+                        case 2: {
+                            svc.getTree().sortByAge();
+                            System.out.println(svc.getTreeInfo());
+                            break;
+                        }
+                        default: {
+                            System.out.println(svc.getTreeInfo());
+                            break;
+                        }
                     }
-                    break;
+
                 }
                 case 2: {
                     System.out.println("Enter name for search");
                     String name = sc.next();
-                    Human fam = ft.searchHumanByName(name);
+                    Human fam = svc.getTree().searchHumanByName(name);
                     System.out.println(fam);
                     break;
                 }
                 case 3: {
                     System.out.println("Enter year of interest");
                     int yearofinterest = Integer.parseInt(sc.next());
-                    ArrayList<Human> res = ft.searchHumanByDate(yearofinterest);
+                    ArrayList<Human> res = svc.getTree().searchHumanByDate(yearofinterest);
                     for (Human smbd : res) {
                         System.out.println(smbd);
                     }
@@ -77,13 +93,13 @@ public class Main implements Serializable {
                 case 4: {
                     System.out.println("Enter name of family member to erase");
                     String name = sc.next();
-                    ft.removeRelative(name);
+                    svc.getTree().removeRelative(name);
                     break;
                 }
                 case 5: {
                     System.out.println("Enter a member name to view children");
                     String name = sc.next();
-                    for (Human child : ft.getHumanList()) {
+                    for (Human child : svc.getTree().getHumanList()) {
                         if (child.getName().equals(name)) {
                             System.out.println(child.getChildren());
                         }
@@ -93,10 +109,10 @@ public class Main implements Serializable {
                 case 6: {
                     System.out.println("Enter a member name to redact");
                     String name = sc.next();
-                    Human target = (ft.searchHumanByName(name));
+                    Human target = (svc.getTree().searchHumanByName(name));
                     if ((target) != null) {
                         System.out.println("Enter new data for this family member:\n");
-                        System.out.println(h);
+                        System.out.println(target);
                         System.out.println("Enter new name (or type and enter > to skip)");
                         String newName = sc.next();
                         System.out.println("Enter new date of birth.Format is yyyy-mm-dd(or type and enter > to skip)");
@@ -109,17 +125,17 @@ public class Main implements Serializable {
                         String newFather = sc.next();
                         System.out.println("Enter new mother name(or type and enter > to skip)");
                         String newMother = sc.next();
-                        ft.redactRelative(target, newName, newDob, newDod, newGender, newFather, newMother);
+                        svc.getTree().redactRelative(target, newName, newDob, newDod, newGender, newFather, newMother);
                     }
                     else System.out.println("No family member with such name exists");
                     break;
                 }
                 case 7:{
-                    savetree(ft,"C:\\Обучение\\Java\\Homework_s1\\untitled\\Family.tree");
+                    savetree(svc.getTree(),"C:\\Обучение\\Java\\Homework_s1\\untitled\\Family.tree");
                     break;
                 }
                 case 8:{
-                    ft = readtree();
+                    svc.setTree(readtree());
                     break;
 
                 }

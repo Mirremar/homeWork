@@ -3,17 +3,20 @@ package Family;
 import java.util.*;
 import java.time.LocalDate;
 
-public class Human {
+public class Human implements Comparable<Human> {
 
     //поля
+    private int id;
     private String name;
     private LocalDate dob;
     private LocalDate dod;
     private Gender gender;
     private List<Human> children;
     private Human mother, father;
+    private int age;
     //конструктор
-    public Human(String name, String dob, String dod, Gender gender, Human mother, Human father) {
+    public Human(int id,String name, String dob, String dod, Gender gender, Human mother, Human father) {
+        this.id = id;
         this.name = name;
         this.dob = LocalDate.parse(dob);
         this.dod = LocalDate.parse(dod);
@@ -21,6 +24,7 @@ public class Human {
         this.mother = mother;
         this.father = father;
         this.children = new ArrayList<>();
+        this.age = setAge();
     }
 
     //get\set
@@ -52,6 +56,7 @@ public class Human {
     public List<Human> getChildren() {
         return children;
     }
+    public int getage() {return age;}
 
     public void setName(String name) {
         this.name = name;
@@ -90,7 +95,7 @@ public class Human {
         sb.append("fam member: ");
         sb.append(getName() + "\n");
         sb.append("Gender: " + getGender() + "\n");
-        sb.append("Years of life: " + getDob() + " to " + getDod() + "\n");
+        sb.append("Years of life: " + getDob() + " to " + getDod() + " ,age " + getage() + "\n");
         if (getMother() == null) {
             sb.append("No data on the mother\n");
         } else {
@@ -105,7 +110,7 @@ public class Human {
     }
 
     //Подсчёт возраста
-    public int getAge() {
+    public int setAge() {
         int age;
         if (!(this.dod == null)) {
             age = this.dod.getYear() - this.dob.getYear();
@@ -135,5 +140,9 @@ public class Human {
     }
 
 
+    @Override
+    public int compareTo(Human h) {
+        return  (this.name.compareTo(h.name));
+    }
 }
 

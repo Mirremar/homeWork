@@ -3,7 +3,7 @@ package Family;
 import java.time.LocalDate;
 import java.util.*;
 
-public class FamilyTree {
+public class FamilyTree implements Iterable<Human> {
     private List<Human> humanList;
 
     public List<Human> getHumanList() {
@@ -12,6 +12,11 @@ public class FamilyTree {
 
     public FamilyTree() {
         this.humanList = new ArrayList<Human>();
+    }
+
+    public void addHuman(Human human){
+        humanList.add(human);
+        //search for children?
     }
 
     public void addRelatives(Human[] humans) { //добавить сразу много
@@ -157,7 +162,17 @@ public class FamilyTree {
         }
         humanList.remove(del);
     }
+    @Override
+    public Iterator<Human> iterator() {
+        return new HumanIterator(humanList);
+    }
 
+    void sortByName(){
+        Collections.sort(humanList);
 
+    }
 
+    void sortByAge(){
+        Collections.sort(humanList,new HumanAgeComparator());
+    }
 }
