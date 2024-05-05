@@ -1,9 +1,11 @@
-package Family;
+package Family.FamilyTree;
+
+import Family.Interfaces.Entity;
 
 import java.util.*;
 import java.time.LocalDate;
 
-public class Human implements Comparable<Human>,Entity<Human> {
+public class Human implements Comparable<Human>, Entity<Human> {
 
     //поля
     private int id;

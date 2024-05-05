@@ -1,4 +1,6 @@
-package Family;
+package Family.Interfaces;
+
+import Family.FamilyTree.Gender;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,4 +1,6 @@
-package Family;
+package Family.Comparators;
+
+import Family.Interfaces.Entity;
 
 import java.util.Comparator;
 

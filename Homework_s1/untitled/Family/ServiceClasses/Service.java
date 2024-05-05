@@ -1,9 +1,8 @@
-package Family;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.function.Consumer;
+package Family.ServiceClasses;
+import Family.FamilyTree.FamilyTree;
+import Family.FamilyTree.Gender;
+import Family.FamilyTree.Human;
+import Family.Interfaces.Entity;
 
 public class Service {
     //класс для работы с информацией.Позволяет избежать работы со статикой

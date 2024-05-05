@@ -1,12 +1,12 @@
 package Family;
 
+import Family.FamilyTree.FamilyTree;
+import Family.FamilyTree.Gender;
+import Family.ServiceClasses.SaveLoadToFile;
+import Family.ServiceClasses.Service;
+import Family.ServiceClasses.ToUserCommunication;
+
 import java.io.Serializable;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.logging.FileHandler;
 
 public class Main implements Serializable {
 

@@ -1,4 +1,7 @@
-package Family;
+package Family.ServiceClasses;
+
+import Family.FamilyTree.Human;
+import Family.Interfaces.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,7 @@ public class ToUserCommunication {
         return actionVariable;
     }
 
-    void sorttree(Service sv){
+    public void sorttree(Service sv){
         System.out.println("would you like to sort the tree by name or age?\n");
         System.out.println("1: by name\n");
         System.out.println("2: by age\n");
@@ -49,7 +52,7 @@ public class ToUserCommunication {
 
     }
 
-    void search(Service sv){
+    public void search(Service sv){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter name for search");
         String name = sc.next();
@@ -57,7 +60,7 @@ public class ToUserCommunication {
         System.out.println(fam);
     }
 
-    void yearslived(Service sv){
+    public void yearslived(Service sv){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter year of interest");
         int yearofinterest = Integer.parseInt(sc.next());
@@ -66,14 +69,14 @@ public class ToUserCommunication {
             System.out.println(smbd);
         }
     }
-    void remover(Service sv){
+    public void remover(Service sv){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter name of family member to erase");
         String name = sc.next();
         sv.getTree().removeRelative(name);
     }
 
-    void childrenviewer(Service sv){
+    public void childrenviewer(Service sv){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter a member name to view children");
         String name = sc.next();
@@ -85,7 +88,7 @@ public class ToUserCommunication {
         }
     }
 
-    void famredacto(Service sv){
+    public void famredacto(Service sv){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter a member name to redact");
         String name = sc.next();

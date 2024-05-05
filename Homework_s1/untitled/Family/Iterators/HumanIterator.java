@@ -1,4 +1,6 @@
-package Family;
+package Family.Iterators;
+
+import Family.Interfaces.Entity;
 
 import java.util.Iterator;
 import java.util.List;

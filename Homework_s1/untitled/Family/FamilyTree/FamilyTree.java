@@ -1,4 +1,9 @@
-package Family;
+package Family.FamilyTree;
+
+import Family.Comparators.EntityNameComparator;
+import Family.Comparators.HumanAgeComparator;
+import Family.Interfaces.Entity;
+import Family.Iterators.HumanIterator;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -155,12 +160,12 @@ public class FamilyTree<T extends Entity<T>> implements Iterable<T> {
         return new HumanIterator(humanList);
     }
 
-    void sortByName(){
+    public void sortByName(){
         Collections.sort(humanList,new EntityNameComparator());
 
     }
 
-    void sortByAge(){
+    public void sortByAge(){
         Collections.sort(humanList,new HumanAgeComparator<T>());
     }
 }
