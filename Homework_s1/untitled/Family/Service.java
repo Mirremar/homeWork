@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 public class Service {
     //класс для работы с информацией.Позволяет избежать работы со статикой
     private int idCounter = 0;
-    private FamilyTree tree;
+    private FamilyTree<Human> tree;
 
     public FamilyTree getTree(){
         return  tree;
@@ -32,7 +32,7 @@ public class Service {
     public String getTreeInfo() {
         StringBuilder sb = new StringBuilder();
         sb.append("Члены семьи:");
-        for (Human h : tree) {
+        for (Entity h : tree) {
             sb.append(h);
             sb.append("\n");
         }

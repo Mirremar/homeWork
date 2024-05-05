@@ -3,7 +3,7 @@ package Family;
 import java.util.*;
 import java.time.LocalDate;
 
-public class Human implements Comparable<Human> {
+public class Human implements Comparable<Human>,Entity<Human> {
 
     //поля
     private int id;
@@ -129,6 +129,12 @@ public class Human implements Comparable<Human> {
     }
 
     @Override
+    public int compareTo(Human o) {
+        if (this.name.equals(o.name)) {return 1;}
+        return -1;
+    }
+
+    /*@Override
     public boolean equals(Object o) //Члены семьи "равны",если их имена равны
     {
         if (o instanceof Human) {
@@ -137,12 +143,7 @@ public class Human implements Comparable<Human> {
                 return true;
         }
         return false;
-    }
+    }*/
 
-
-    @Override
-    public int compareTo(Human h) {
-        return  (this.name.compareTo(h.name));
-    }
 }
 
