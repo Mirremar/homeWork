@@ -18,24 +18,6 @@ public class Presenter {
         service=new Service();
     }
 
-    public int mainmenu() {
-        int actionVariable=-1;
-        System.out.println("Choose an action(type a number from 1 to 9 or Q to exit):\n");
-        System.out.println("1 Sort tree by name\n");
-        System.out.println("2 Sort tree by age\n");
-        System.out.println("3 Search family member by name\n");
-        System.out.println("4 Search who lived in a year x\n");
-        System.out.println("5 Remove from tree\n");
-        System.out.println("6 Family.View children\n");
-        System.out.println("7 Redact member data\n");
-        System.out.println("8 Save tree to file");
-        System.out.println("9 Load tree from file");
-        System.out.println("Q Exit\n");
-        Scanner sc = new Scanner(System.in);
-        actionVariable = Integer.parseInt(sc.next());
-        return actionVariable;
-    }
-
     public void sortTreeByName(){
         service.sortByName();
     }
