@@ -1,4 +1,4 @@
-package Family.Interfaces;
+package Family.Model;
 
 import java.io.Serializable;
 

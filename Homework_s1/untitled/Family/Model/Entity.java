@@ -1,6 +1,6 @@
-package Family.Interfaces;
+package Family.Model;
 
-import Family.FamilyTree.Gender;
+import Family.Model.Gender;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,6 +15,7 @@ public interface Entity<T> {
     LocalDate getDod();
     List<T> getChildren();
     int getage();
+    Integer getId();
 
     void setName(String newName);
 

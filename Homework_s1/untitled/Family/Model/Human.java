@@ -1,11 +1,10 @@
-package Family.FamilyTree;
+package Family.Model;
 
-import Family.Interfaces.Entity;
-
+import java.io.Serializable;
 import java.util.*;
 import java.time.LocalDate;
 
-public class Human implements Comparable<Human>, Entity<Human> {
+public class Human implements Comparable<Human>, Entity<Human>, Serializable {
 
     //поля
     private int id;
@@ -60,6 +59,8 @@ public class Human implements Comparable<Human>, Entity<Human> {
     }
     public int getage() {return age;}
 
+    public Integer getId() {return id;}
+
     public void setName(String name) {
         this.name = name;
     }
@@ -95,7 +96,7 @@ public class Human implements Comparable<Human>, Entity<Human> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("fam member: ");
-        sb.append(getName() + "\n");
+        sb.append(getName() + " " + "id " + getId() + "\n");
         sb.append("Gender: " + getGender() + "\n");
         sb.append("Years of life: " + getDob() + " to " + getDod() + " ,age " + getage() + "\n");
         if (getMother() == null) {
@@ -132,20 +133,10 @@ public class Human implements Comparable<Human>, Entity<Human> {
 
     @Override
     public int compareTo(Human o) {
-        if (this.name.equals(o.name)) {return 1;}
+        if (this.id == o.id) {return 1;}
         return -1;
     }
 
-    /*@Override
-    public boolean equals(Object o) //Члены семьи "равны",если их имена равны
-    {
-        if (o instanceof Human) {
-            Human c = (Human) o;
-            if (this.name.equals(c.name))
-                return true;
-        }
-        return false;
-    }*/
 
 }
 

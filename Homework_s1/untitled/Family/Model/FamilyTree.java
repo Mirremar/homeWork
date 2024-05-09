@@ -1,9 +1,4 @@
-package Family.FamilyTree;
-
-import Family.Comparators.EntityNameComparator;
-import Family.Comparators.HumanAgeComparator;
-import Family.Interfaces.Entity;
-import Family.Iterators.HumanIterator;
+package Family.Model;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -23,17 +18,6 @@ public class FamilyTree<T extends Entity<T>> implements Iterable<T> {
         humanList.add(human);
     }
 
-    public void addRelatives(T[] humans) { //добавить сразу много
-        for(T h:humans)
-        {
-            humanList.add(h);
-            T somemother = searchHumanByName(h.getMother().getName());
-            if (somemother!=null) {somemother.getChildren().add(h);}
-            T somefather = searchHumanByName(h.getFather().getName());
-            if (somefather!=null) {somefather.getChildren().add(h);}
-        }
-    }
-
     public T searchHumanByName(String somename) {
         for (T hu : humanList) {
             if (hu.getName().equals(somename)) {
@@ -44,10 +28,19 @@ public class FamilyTree<T extends Entity<T>> implements Iterable<T> {
 
     }
 
-    public ArrayList<T> searchHumanByDate(int someyear) //Кто был жив на период определённого года?
+    public T searchHumanByID(Integer someid) {
+        for (T hu : humanList) {
+            if (hu.getId()==someid) {
+                return hu;
+            }
+        }
+        return null;
+
+    }
+
+    public ArrayList<T> searchHumanByDate(Integer someyear) //Кто был жив на период определённого года?
     {
         ArrayList<T> results = new ArrayList<>();
-        //(periodStart.compareTo(hu.getDob())>0)
         LocalDate periodStart = LocalDate.of(someyear, 01, 01);
         LocalDate periodEnd = LocalDate.of(someyear, 12, 31);
         for (T hu : humanList)  //25-05-1994  //31-12-1994
@@ -106,9 +99,21 @@ public class FamilyTree<T extends Entity<T>> implements Iterable<T> {
         return caseresult;
     }
 
-    public void redactRelative(T h, String newName, String newDob, String newDod, String newGender, String newFather,
-                               String newMother) {
-
+    public void redactRelative(Integer id, String newName, String newDob, String newDod, Gender newGender,String fid,String mid) {
+        int newfid =-1;
+        int newmid = -1;
+        T h = searchHumanByID(id);
+        try {
+            if (fid != null) {
+                newfid = Integer.parseInt(fid);
+            }
+            if (mid != null) {
+                newmid = Integer.parseInt(mid);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         if (!(newName==null)) {
             h.setName(newName);
         }
@@ -121,31 +126,35 @@ public class FamilyTree<T extends Entity<T>> implements Iterable<T> {
             h.setDob(LocalDate.parse(newDod));
         }
 
-        if (!(newGender==null)) {
-            if (newGender.equals("Male")) {
+        if ((!(newGender==null))) {
+            if (newGender==Gender.Male) {
                 h.setGender(Gender.Male);
             } else {
                 h.setGender(Gender.Female);
             }
         }
-
-        if (!(newFather==null)) {
-            h.getFather().getChildren().remove(h);
-            T father = searchHumanByName(newFather);
+        if (searchHumanByID(newfid)!=null) {
+            if (h.getFather()!=null) {
+                h.getFather().getChildren().remove(h);
+            }
+            T father = searchHumanByID(newfid);
             h.setFather(father);
             father.getChildren().add(h);
         }
 
-        if (!(newMother==null)) {
-            h.getMother().getChildren().remove(h);
-            T mother = searchHumanByName(newMother);
+        if (searchHumanByID(newmid)!=null) {
+            if (h.getMother()!=null) {
+                h.getMother().getChildren().remove(h);
+            }
+            T mother = searchHumanByID(newmid);
             h.setMother(mother);
             mother.getChildren().add(h);
         }
+        System.out.println(h);
     }
 
-     public void removeRelative(String name) {
-        T del = searchHumanByName(name);
+     public void removeRelative(Integer ID) {
+        T del = searchHumanByID(ID);
         del.getFather().getChildren().remove(del);
         del.getMother().getChildren().remove(del);
         for (T delchild:del.getChildren())
@@ -167,5 +176,23 @@ public class FamilyTree<T extends Entity<T>> implements Iterable<T> {
 
     public void sortByAge(){
         Collections.sort(humanList,new HumanAgeComparator<T>());
+    }
+    public List<T> getChildren(Integer ID) {
+        T chelik = searchHumanByID(ID);
+        ArrayList<T> children = new ArrayList<>();
+        for (T h : humanList) {
+            if (h.getFather() != null) {
+                if ((h.getFather().equals(chelik))) {
+                    children.add(h);
+                }
+            }
+            if (h.getFather() != null) {
+                if ((h.getMother()).equals(chelik)) {
+                    children.add(h);
+                }
+            }
+
+        }
+        return children;
     }
 }

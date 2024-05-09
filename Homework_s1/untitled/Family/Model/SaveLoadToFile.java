@@ -1,6 +1,6 @@
-package Family.ServiceClasses;
+package Family.Model;
 
-import Family.Interfaces.Writeable;
+import Family.Model.Writeable;
 
 import java.io.Serializable;
 import java.io.FileOutputStream;
